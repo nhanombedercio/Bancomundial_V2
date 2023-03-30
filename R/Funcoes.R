@@ -23,7 +23,7 @@ install_data_packages <- function() {
   #library(packages)
   # Carrega todos os pacotes instalados
   lapply(packages, library, character.only = TRUE)
- # print("PACOTE INSTALADO E CARREGADO")
+  print("PACOTE INSTALADO E CARREGADO")
 }
    
  

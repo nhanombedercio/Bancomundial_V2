@@ -43,10 +43,7 @@ ui <- fluidPage(
                         # Define as colunas do layout de grade
                         #ui_participacaoSGR("part_sgr")  
                         column(3,
-                               wellPanel(selectInput("by", 
-                                                     label = h4("Números da operação por:"),
-                                                     choices =c("Seu todo" ,"Por cidade")         
-                               )),
+                               wellPanel(filtro_cresca),
                                
                         ),
                         
@@ -60,19 +57,39 @@ ui <- fluidPage(
                                     #            height = "300px")
                                    #, color = "black"),
                                #),
-                               plotlyOutput("tab2_participante", height = 600)
+                               plotlyOutput("tab2_participante",width="1000", height = "650px")
                         ),
                         
                         
                ), 
-               tabPanel(value = "tab3", title = "SESSÕES OBRIGATORIAS",
-                        
-                        # Define as colunas do layout de grade
-                        #ui_80_perc("perc_80")                  
-                        
-                        
-               ), 
-    ),), # CRESÇA 
+               
+    ),
+    tabPanel(value = "tab3", title = "SESSÕES OBRIGATORIAS",
+             
+             # Define as colunas do layout de grade
+             #ui_80_perc("perc_80")
+             column(3,
+                    wellPanel(filtro_cresca_obr),
+                    
+             ),
+             
+             column(9,h4("As empreendedoras da abordagem Cresça devem participar de pelo menos 12 sessões de SGR.
+             O gráfico em baixo mostra o número de empreendedoras que cumprem o número de sessões obrigatórias."),
+                    mainPanel(
+                      #uiOutput("header"),
+                      #withSpinner(
+                      # plotlyOutput("plot",
+                      #            height = "300px")
+                      #, color = "black"),
+                      #),
+                      plotlyOutput("tab3_obrigatoria",width="1000", height = "650px")
+                    ),
+                    
+                    
+             ), 
+             
+             
+    )), # CRESÇA 
     
     ##MOVIMENTA
     navbarMenu("MOVIMENTA",
@@ -176,7 +193,36 @@ ui <- fluidPage(
 # Define o servidor
 server <- function(input, output, session) {
 
+  ### CRESCA PARTICIPANTE
   
+  output$tab2_participante <- renderPlotly({
+    
+    if(input$by_cresca=="Seu todo") {
+       
+      grafico_cresca_all
+      
+    } else 
+      if(input$by_cresca=="por cidade") {
+        grafico_cresca_cidade
+      } 
+
+  })
+  ### CRESCA OBRIGATORIA
+
+  
+    
+  output$tab3_obrigatoria <- renderPlotly({
+    
+    if(input$by_cresca_obr=="Seu todo") {
+      
+      grafico_cresca_Obr_all
+      
+    } else 
+      if(input$filtro_cresca_obr=="por trimestre") {
+        
+      } 
+    
+  })
 
   
   #define path to data (data is saved in repo /realiza)===========================
