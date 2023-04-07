@@ -7,7 +7,7 @@
  
 ##Funcao para instalar pacotes importantes
 install_data_packages <- function() {
-  packages <- c("ggthemes","RColorBrewer","leaflet","esquisse", "sf","shiny", "shinythemes", "shinydashboard", "shinyWidgets", "DT", "ggplot2", "leaflet", "plotly", "flexdashboard", "shinyjs","tidyverse", "data.table", "dplyr", "readr", "readxl", "googlesheets4", "jsonlite", "httr", "stringr", "lubridate", "janitor")
+  packages <- c("ggthemes","RColorBrewer","esquisse", "sf","shiny", "shinythemes", "shinydashboard", "shinyWidgets", "DT", "ggplot2",  "plotly", "flexdashboard", "shinyjs","tidyverse", "data.table", "dplyr", "readr", "readxl", "googlesheets4", "jsonlite", "httr", "stringr", "lubridate", "janitor")
     # Verifica se cada pacote da lista está instalado e instala se não estiver
   # Verifica se cada pacote da lista está instalado e instala se não estiver
   for (package in packages) {

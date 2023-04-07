@@ -71,13 +71,14 @@ grafico_cresca_cidade<-presencas_cresca_cidade %>% filter(grupo_accronym %in% "S
 #######Sessoes obrigatorias  
  
 presenca_obr_cresca_all=all_presencas %>% filter(grupo_accronym %in% "SGR", presente==TRUE, actividade!="Sessão Inaugural")  %>% 
-  group_by(Cidade,Emprendedora) %>% summarise(n=n())  %>% filter(n>=12) %>% group_by(Cidade) %>% summarise(n=n())
+  group_by(Cidade,Emprendedora) %>% summarise(n=n())  %>% filter(n>=12) %>% group_by(Cidade) %>% summarise(n=n()) 
   
+#text =paste("Presenciais:", n, "de",tab_cresca_cidade$n, "nas listas de BM")
+##text =paste("Numero de empreendedoras:", n, "da lista do banco")
 ### Grafico sessao obrigatoria por todo 
 grafico_cresca_Obr_all<- presenca_obr_cresca_all %>%
   ggplot() +
-  aes(text =paste("Presenciais:", n, "de",tab_cresca_cidade$n, "nas listas de BM"),
-      x = Cidade, y = n, fill=Cidade) +
+  aes(x = Cidade, y = n, fill=Cidade) +
   geom_col() +
   scale_fill_hue(direction = 1) +
   theme_bw()+ 
@@ -90,9 +91,37 @@ grafico_cresca_Obr_all<- presenca_obr_cresca_all %>%
                                      size = 10),
           axis.text.y = element_text(size = 12)) + 
   geom_point(data=tab_cresca_cidade,
-             aes(text =paste("Numero de empreendedoras:", n, "da lista do banco"),x=Cidade, y=n),shape = "triangle down filled", 
+             aes(x=Cidade, y=n),shape = "triangle down filled", 
              size =2, colour = "#112446")+
   scale_y_continuous(limits = c(0,170), breaks = seq(0,170,by=20))
- 
+grafico_cresca_Obr_all
 ###### Grafico sessao obrigatoria trimestre 
 
+
+all_presencas$abordagem <- ""
+
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$actividade==1.1, "SGR")
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$actividade==1.2, "SGR")
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$actividade==1.3, "SGR")
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$actividade==2.1, "SGR")
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$actividade==2.2, "SGR")
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$actividade==2.3, "SGR")
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$actividade==3.1, "SGR")
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$actividade==3.2, "SGR")
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$actividade==3.3, "SGR")
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$actividade=="Sessao de encerramento de parceiros", "SGR")
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$actividade=="Sessao intercalar de parceiros", "SGR")
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$actividade=="Sessões de coaching", "SGR")
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$actividade=="Introducao a sessao de parceiros", "SGR")
+all_presencas$abordagem<-replace(all_presencas$abordagem, all_presencas$abordagem=="", "FNM")
+
+
+
+ 
+
+
+
+
+
+
+table(all_presencas$actividade,all_presencas$abordagem)

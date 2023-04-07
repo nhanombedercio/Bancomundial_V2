@@ -12,5 +12,7 @@ emprendedoras <- readRDS("data/0look_ups/emprendedoras.rds")
 emprendedoras_cresca=emprendedoras %>% dplyr::filter(grupo_accronym=="SGR")
 
 ## 
-
- 
+#install.packages("rio")
+library(rio)
+#export_excel(all_presencas, "exemplo.xlsx")
+export(all_presencas,  tempfile(fileext = "der.xlsx"))

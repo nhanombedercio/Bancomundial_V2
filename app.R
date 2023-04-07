@@ -82,11 +82,11 @@ ui <- fluidPage(
                       #            height = "300px")
                       #, color = "black"),
                       #),
-                      plotlyOutput("tab3_obrigatoria",width="1000", height = "650px")
+                      plotlyOutput("tab3_obrigatoria",width="1000", height = "350px")
                     ),
                     
                     
-             ), 
+             ),  
              
              
     )), # CRESÇA 
