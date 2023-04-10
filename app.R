@@ -8,7 +8,7 @@ library(shinythemes)
 library(readxl)
 library(shinyWidgets) 
 library(terra)
-install_data_packages()
+#install_data_packages()
 
 
 # Define UI

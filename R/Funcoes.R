@@ -15,8 +15,7 @@ install_data_packages <- function() {
       install.packages(package)
       
     } else {
-      print("PACOTE INSTALADO E CARREGADO")
-    }
+     }
   }
   
   # Carrega todos os pacotes instalados

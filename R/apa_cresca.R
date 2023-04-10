@@ -1,9 +1,49 @@
 ####Grafico SGR
 install_data_packages()
 
-
+#presente
 #######participantes 
+Se_coaching<-unique(all_presencas) %>% filter(actividade=="Sessões de coaching")
+ 
+  library(dplyr)
+library(lubridate)
+ 
+ 
+# criação da coluna "tipo de data"
+ 
+sgr_presencas$tipo_sessao_coaching <- ifelse(sgr_presencas$Emprendedora == lag(sgr_presencas$Emprendedora) & 
+                                       sgr_presencas$Emprendedora == lead(sgr_presencas$Emprendedora),
+                                     "Sessões de coaching 2", 
+                                     ifelse(sgr_presencas$Emprendedora == lag(sgr_presencas$Emprendedora) & is.na(lag(sgr_presencas$Emprendedora)),
+                                            "Sessões de coaching 1",
+                                            "Sessões de coaching 3"))
 
+ all_presencas1<- all_presencas
+
+all_presencas1$tipo_sessao_coaching <- ""
+empreendedoras <- unique(all_presencas1$Emprendedora)
+
+for (i in 1:length(empreendedoras)) {
+  emp <- empreendedoras[i]
+  count_data <- 0
+  
+  for (j in 1:nrow(all_presencas1)) {
+    if (all_presencas1[j,"Emprendedora"] == emp) {
+      count_data <- count_data + 1
+      all_presencas1[j,"tipo_sessao_coaching"] <- paste0("Sessões de coaching", count_data)
+    }
+  }
+}
+
+table(Se_coaching$tipo_sessao_coaching)
+
+
+
+
+
+
+table(sgr_presencas$tipo_sessao_coaching)
+ 
 ###SGR
 filtro_cresca <- selectInput("by_cresca", 
                           label = h4("Números da operação por:"),
